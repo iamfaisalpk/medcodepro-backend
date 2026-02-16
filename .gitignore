@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Build Output
+dist/
+build/
+
+# Debug and Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+db_debug.json
+debug/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Private utility scripts (OPTIONAL: if you want them private, keep them out)
+# create_admin.js
+# migrate_db.js
+# check_db.js
