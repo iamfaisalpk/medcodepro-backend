@@ -34,11 +34,28 @@ app.use(helmet());
 app.use(mongoSanitize());
 
 // CORS configuration
+const allowedOrigins = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://medcodepro-frontend.vercel.app',
+    process.env.CLIENT_URL, 
+].filter(Boolean); 
+
 app.use(
     cors({
-        origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
-        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        origin: (origin, callback) => {
+            // Allow requests with no origin (like mobile apps or curl requests)
+            if (!origin) return callback(null, true);
+            
+            if (allowedOrigins.indexOf(origin) !== -1) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
         credentials: true,
+        allowedHeaders: ['Content-Type', 'Authorization'],
     })
 );
 
